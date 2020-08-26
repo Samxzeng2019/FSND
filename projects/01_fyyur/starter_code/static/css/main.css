@@ -101,22 +101,43 @@ ul.items {
   padding: 0;
   margin: 0;
 }
+
+ul.items > li button {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  color: red;
+  cursor: pointer;
+  font-size: 20px;
+}
+ul.items > li button:hover {
+  color: blue;
+  cursor: pointer;
+}
 ul.items > li > a {
   margin-bottom: 15px;
+  padding: 7px 10px 0 0;
   display: flex;
   color: initial;
   text-decoration: initial;
 }
+ul.items > li {
+  display: flex;
+}
 ul.items > li > a > i {
   padding: 7px 10px 0;
 }
-ul.items > li:hover {
+ul.items > li a:hover {
   color: orange;
   cursor: pointer;
 }
-ul.items > li:hover h5 {
+.delete-button-show:hover {
   color: orange;
+  cursor: pointer;
 }
+/* ul.items > li:hover h5 {
+  color: orange;
+} */
 .item {
   padding: 5px 5px 5px;
   flex: 1;

@@ -7,9 +7,17 @@
 		<a href="/artists/{{ artist.id }}">
 			<i class="fas fa-users"></i>
 			<div class="item">
-				<h5>{{ artist.name }}</h5>
+				<h5>{{ artist.name }} (id:{{ artist.id }}) </h5>
 			</div>
 		</a>
+		<a href="/artists/{{ artist.id }}/edit">
+			<div class="item">
+				<h5><b>Edit</b></h5> 
+			</div>
+		</a>
+		<div>
+			<button class="delete-button-artist" data-id="{{ artist.id }}" id="delete-button-artist{{ artist.id }}" >&cross;</button>
+		</div>
 	</li>
 	{% endfor %}
 </ul>

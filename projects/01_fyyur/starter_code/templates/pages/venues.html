@@ -9,9 +9,20 @@
 			<a href="/venues/{{ venue.id }}">
 				<i class="fas fa-music"></i>
 				<div class="item">
-					<h5>{{ venue.name }}</h5>
+					<h5>{{ venue.name }} (id:{{ venue.id }}) </h5> 
 				</div>
 			</a>
+			<div style="padding-top: 2px; padding-right: 10px;">
+				<h5> Number of upcoming shows: {{ venue.num_upcoming_shows }}</h5>
+			</div>
+				<a href="/venues/{{ venue.id }}/edit">
+					<div class="item">
+						<h5><b>Edit</b></h5> 
+					</div>
+				</a>
+			<div>
+				<button class="delete-button-venue" data-id="{{ venue.id }}" id="delete-button-venue{{ venue.id }}" >&cross;</button>
+			</div>
 		</li>
 		{% endfor %}
 	</ul>

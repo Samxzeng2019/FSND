@@ -10,6 +10,7 @@
             <h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
             <p>playing at</p>
             <h5><a href="/venues/{{ show.venue_id }}">{{ show.venue_name }}</a></h5>
+            <button class="delete-button-show" data-id="{{ show.id }}" id="delete-button-show{{ show.id }}" >&cross;</button>
         </div>
     </div>
     {% endfor %}
