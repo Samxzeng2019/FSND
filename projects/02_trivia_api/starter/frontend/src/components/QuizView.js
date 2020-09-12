@@ -12,7 +12,7 @@ class QuizView extends Component {
         quizCategory: null,
         previousQuestions: [], 
         showAnswer: false,
-        categories: {},
+        categories: [],
         numCorrect: 0,
         currentQuestion: {},
         guess: '',
@@ -35,7 +35,7 @@ class QuizView extends Component {
     })
   }
 
-  selectCategory = ({type, id=0}) => {
+  selectCategory = (type, id) => {
     this.setState({quizCategory: {type, id}}, this.getNextQuestion)
   }
 
@@ -105,14 +105,14 @@ class QuizView extends Component {
               <div className="choose-header">Choose Category</div>
               <div className="category-holder">
                   <div className="play-category" onClick={this.selectCategory}>ALL</div>
-                  {Object.keys(this.state.categories).map(id => {
+                  {this.state.categories.map((el) => {
                   return (
                     <div
-                      key={id}
-                      value={id}
+                      key={el['id']}
+                      value={el['id']}
                       className="play-category"
-                      onClick={() => this.selectCategory({type:this.state.categories[id], id})}>
-                      {this.state.categories[id]}
+                      onClick={() => this.selectCategory(this.state.categories[el['id']-1]['type'], el['id'])}>
+                      {this.state.categories[el['id']-1]['type']}
                     </div>
                   )
                 })}
@@ -131,9 +131,11 @@ class QuizView extends Component {
   }
 
   evaluateAnswer = () => {
-    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase().split(' ')
     const answerArray = this.state.currentQuestion.answer.toLowerCase().split(' ');
-    return answerArray.includes(formatGuess)
+    // check in case of the guess has space, make sure to check every word in guess as a subset of answers
+    const result = formatGuess.every(el => answerArray.includes(el))
+    return result
   }
 
   renderCorrectAnswer(){

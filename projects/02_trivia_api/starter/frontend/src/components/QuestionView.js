@@ -12,7 +12,7 @@ class QuestionView extends Component {
       questions: [],
       page: 1,
       totalQuestions: 0,
-      categories: {},
+      categories: [],
       currentCategory: null,
     }
   }
@@ -78,7 +78,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
+      url: `/questions/search`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -95,7 +95,7 @@ class QuestionView extends Component {
         return;
       },
       error: (error) => {
-        alert('Unable to load questions. Please try your request again')
+        alert('Unable to load the question. Please try search something else again')
         return;
       }
     })
@@ -125,10 +125,10 @@ class QuestionView extends Component {
         <div className="categories-list">
           <h2 onClick={() => {this.getQuestions()}}>Categories</h2>
           <ul>
-            {Object.keys(this.state.categories).map((id, ) => (
-              <li key={id} onClick={() => {this.getByCategory(id)}}>
-                {this.state.categories[id]}
-                <img className="category" src={`${this.state.categories[id]}.svg`}/>
+            {this.state.categories.map((el) => (
+              <li key={el['id']} onClick={() => {this.getByCategory(el['id'])}}>
+                {this.state.categories[el['id']-1]['type']}
+                <img className="category" src={`${this.state.categories[el['id']-1]['type']}.svg`}/>
               </li>
             ))}
           </ul>
@@ -136,16 +136,22 @@ class QuestionView extends Component {
         </div>
         <div className="questions-list">
           <h2>Questions</h2>
-          {this.state.questions.map((q, ind) => (
-            <Question
-              key={q.id}
-              question={q.question}
-              answer={q.answer}
-              category={this.state.categories[q.category]} 
-              difficulty={q.difficulty}
-              questionAction={this.questionAction(q.id)}
-            />
-          ))}
+          {this.state.questions.map((q, ind) => {
+            // to catch the error when q category is null for some test cases
+            if (q.category) {
+              return (
+                <Question
+                  key={q.id}
+                  question={q.question}
+                  answer={q.answer}
+                  // to return the type str, not just category id
+                  category={this.state.categories[q.category-1]['type']} 
+                  difficulty={q.difficulty}
+                  questionAction={this.questionAction(q.id)}
+                />
+              )
+            }
+          })}
           <div className="pagination-menu">
             {this.createPagination()}
           </div>
