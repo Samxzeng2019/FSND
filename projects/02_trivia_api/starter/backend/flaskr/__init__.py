@@ -145,6 +145,11 @@ def create_app(test_config=None):
           'total_questions': len(selection),
           'current_category': categories[0].format()
         })
+      else:
+        return jsonify({
+          'success': False,
+          'questions': 'No match question found, please search something else'
+        })
     except:
       abort(422)
 

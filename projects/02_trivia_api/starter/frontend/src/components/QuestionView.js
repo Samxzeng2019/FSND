@@ -88,11 +88,18 @@ class QuestionView extends Component {
       },
       crossDomain: true,
       success: (result) => {
-        this.setState({
-          questions: result.questions,
-          totalQuestions: result.total_questions,
-          currentCategory: result.current_category })
-        return;
+        if (result.success) {
+          this.setState({
+            questions: result.questions,
+            totalQuestions: result.total_questions,
+            currentCategory: result.current_category })
+          return;
+        }
+        else if (result.success == false) {
+          alert(result.questions)
+          return;
+        }
+
       },
       error: (error) => {
         alert('Unable to load the question. Please try search something else again')
