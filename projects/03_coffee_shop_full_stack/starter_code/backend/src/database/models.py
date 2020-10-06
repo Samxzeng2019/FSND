@@ -65,7 +65,6 @@ class Drink(db.Model):
             'title': self.title,
             'recipe': json.loads(self.recipe)
         }
-
     '''
     insert()
         inserts a new model into a database
